@@ -130,17 +130,25 @@ btnPrevius.addEventListener(`click` , function(){
    
 })
 
+//? [ creo la variabile clok vuota per lo scoop globale]
+let clock;
 
 // //? [creo l'evento asull clik di btn-start]
-// btnStart.addEventListener('click', function(){
-   
-    
-// })
+ btnStart.addEventListener('click', function(){
+   // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
+    clock = setInterval(function(){ 
+    activeElement = scrolling(imgList,activeElement,imgListBox,true);
+} , 3000);  
+})
+
 // //? [creo l'evento asull clik di btnInversionForth]
-// btnInversionForth.addEventListener('click', function(){
-    
-    
-// })
+btnInversionForth.addEventListener('click', function(){
+      // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
+    clock = setInterval(function(){ 
+    activeElement = scrolling(imgList,activeElement,imgListBox,true);
+} , 3000);  
+})
+
 // //? [creo l'evento asull clik di btnInversionBack]
 // btnInversionBack.addEventListener('click', function(){
    
@@ -188,15 +196,10 @@ function scrolling (listImg,elementActive,thumbnailsBox,isNext){
 
 }
 
+// console.log(imgListBox)
+// //? {creo l'evento sul click thumbnails all'img}
+// imgListBox.addEventListener('click', function(){
+//     console.log(`hai cliccato ${elementActive}`)
+// });
 
-//? {creo l'evento sul click thumbnails all'img}
-imgThumbnails.addEventListener('click', function(){
-    console.log(`hai cliccato ${elementActive}`)
-});
-
-
-// ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
-let clock = setInterval(function(){ 
-    activeElement = scrolling(imgList,activeElement,imgListBox,true);
-} , 3000);
 
