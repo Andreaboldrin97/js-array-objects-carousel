@@ -1,4 +1,12 @@
-// creo la const images degli array de l'elemnto 
+// comment
+//? create element
+//! take element
+//* recovery element
+
+
+
+
+//? creo la const images degli array de l'elemnto 
 const images = [
     {
         url: 'http://www.viaggiareonline.it/wp-content/uploads/2014/11/sweden_148857365.jpg',
@@ -40,13 +48,14 @@ images.forEach((element , i , array) => {
      console.log(`url(${element.url}) , title (${element.title}) , description (${element.description})`);
 
     let imgCarousel = document.createElement('div')
-    imgCarousel.classList.add('position-relative')
-    //! creo il contenuto HTML con un Template literals 
+    imgCarousel.classList.add('position-relative', 'my_corousel')
+
+    //? creo il contenuto HTML con un Template literals 
     imgCarousel.innerHTML= 
                     `   <img src="${element.url}" alt="img di ${element.title}">
-                        <div class="text_img position-absolute top-0 text-end m-4">
-                            <h3 class="text-white">${element.title}</h3>
-                            <p class="text-white">${element.description}</p>
+                        <div class="text_img position-absolute top-0 end-0 text-end m-4">
+                            <h1 class="text-white">${element.title}</h1>
+                            <p class="text-white fs-2">${element.description}</p>
                         </div> `
             ;
     //*aggiungo la classe d-none ad ogni elemento newImg per non farlo vedere 
@@ -59,7 +68,7 @@ images.forEach((element , i , array) => {
 //? creo una variabile di stato
 let activeElement = 0 ;
 
-//? associo alla var imglist i figli di carouselBox cioè le img create , per avrere la lista 
+//* associo alla var imglist i figli di carouselBox cioè le img create , per avrere la lista 
 let imgList=carouselBox.children;
 
  //*alla var di partenza rimuovo il d-none e aggiungo la classe active per farla vedere
@@ -75,16 +84,28 @@ let imgList=carouselBox.children;
     let btnPrevius=document.querySelector(`.btn_previus`);
 
 
+   
+//? creo l'evento sull click btn next
+btnNext.addEventListener(`click` , function(){
+    //* l'elemento actveElement è uguale al suo incremento
+    activeElement = scrolling(imgList,activeElement,true);
+   
+})
+
+//? creo l'evento sull click btn previus
+btnPrevius.addEventListener(`click` , function(){
+    //* l'elemento actveElement è uguale al suo incremento
+    activeElement = scrolling(imgList,activeElement,false);
+   
+})
 
 
 
 
 
 
-
-
-//! creo la funxione per i btn
-function scrolling (listImg , elementActive , isNext){
+//? creo la funxione per i btn
+function scrolling (listImg,elementActive,isNext){
     //*dalla variabile di partenza rimuovo l'active e aggiungo la classe d-none per non farla vedere
         listImg[elementActive].classList.remove('active');
         listImg[elementActive].classList.add('d-none');
@@ -92,28 +113,24 @@ function scrolling (listImg , elementActive , isNext){
 
         //? creo un ternary operetor per vedere se il btn e next o previus
             //se è next all'ora aumento di uno (++) senno sotrago 1 (--)
-        elementActive = (isNext) ? 'activeElement++' : 'activeElement--';
+        elementActive = (isNext) ? (elementActive + 1) : (elementActive - 1);
         
-        
+        console.log(elementActive)
 
          //* se active elemente ha rigiunto la lunghezza dell'array allora torna a 0
-         if(activeElement === imgList.length){
-            activeElement=0;
+         if(elementActive === listImg.length){
+            elementActive=0;
         }
          //* se active elemente ha rigiunto la lunghezza dell'array allora torna a 0
-         else if(activeElement === -1){
-            activeElement= imgList.length-1;
+         else if(elementActive === -1){
+            elementActive= listImg.length-1;
         }
 
 
         //*al nuovo valore rimuovo il d-none e aggiungo la classe active per farla vedere
         listImg[elementActive].classList.remove('d-none');
         listImg[elementActive].classList.add('active');
-}
 
-//! elemnto html pr l'img
-/* <img src="http://www.viaggiareonline.it/wp-content/uploads/2014/11/sweden_148857365.jpg" alt="">
-<div class="text_img position-absolute top-0 text-end m-4">
-    <h3 class="text-white">ARGENTINA</h3>
-    <p class="text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, impedit libero. Non mollitia atque debitis, amet eaque temporibus numquam impedit vitae minus quis. Beatae autem, quis ratione voluptas sit aut.</p>
-</div> */
+        return elementActive;
+
+}

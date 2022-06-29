@@ -1,3 +1,7 @@
 img{
     width: 100%;
 }
+.my_corousel img{
+    object-fit: cover;
+    height: 893px;
+}
