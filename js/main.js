@@ -143,6 +143,7 @@ let clock;
 
 // //? [creo l'evento asull clik di btnInversionForth]
 btnInversionForth.addEventListener('click', function(){
+    clearInterval(clock);
       // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
     clock = setInterval(function(){ 
     activeElement = scrolling(imgList,activeElement,imgListBox,true);
@@ -150,10 +151,14 @@ btnInversionForth.addEventListener('click', function(){
 })
 
 // //? [creo l'evento asull clik di btnInversionBack]
-// btnInversionBack.addEventListener('click', function(){
+ btnInversionBack.addEventListener('click', function(){
+    clearInterval(clock);
+       // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
+     clock = setInterval(function(){ 
+    activeElement = scrolling(imgList,activeElement,imgListBox,false);
+} , 3000);  
+})
    
-    
-//})
 // //? [creo l'evento asull clik di btnStop]
 btnStop.addEventListener('click', function(){
    clearInterval(clock);
