@@ -2,6 +2,7 @@
 //? create element
 //! take element
 //* recovery element
+// {thumbnails comment}
 
 
 
@@ -47,8 +48,13 @@ images.forEach((element , i , array) => {
      //porto in console gli elementi
      console.log(`url(${element.url}) , title (${element.title}) , description (${element.description})`);
 
+     //? creo l'elemto div (imgCarousel )
     let imgCarousel = document.createElement('div')
     imgCarousel.classList.add('position-relative', 'my_corousel')
+
+     //? {creo l'elemto div (imgThumbnails)}
+    let imgThumbnails = document.createElement('div')
+    imgThumbnails.classList.add('mini_img')
 
     //? creo il contenuto HTML con un Template literals 
     imgCarousel.innerHTML= 
@@ -58,10 +64,18 @@ images.forEach((element , i , array) => {
                             <p class="text-white fs-2">${element.description}</p>
                         </div> `
             ;
+
+
+     //? {creo il contenuto HTML con un Template literals }
+    imgThumbnails.innerHTML= `<img src="${element.url}" alt="img di ${element.title}">`;
+
+
     //*aggiungo la classe d-none ad ogni elemento newImg per non farlo vedere 
         imgCarousel.classList.add(`d-none`);
     //! appendo l'elemento creato
     carouselBox.append(imgCarousel);
+    //! {appendo l'elemento creato}
+    imgBox.append(imgThumbnails);
 
 })
 
@@ -70,10 +84,14 @@ let activeElement = 0 ;
 
 //* associo alla var imglist i figli di carouselBox cioè le img create , per avrere la lista 
 let imgList=carouselBox.children;
+ //* {associo alla var imglist i figli di carouselBox cioè le img create , per avrere la lista }
+ let imgListBox=imgBox.children
 
  //*alla var di partenza rimuovo il d-none e aggiungo la classe active per farla vedere
  imgList[activeElement].classList.add('active');
  imgList[activeElement].classList.remove('d-none');
+ //*{alla var di partenza aggiungo la classe 'img_visibility' per farla risaltare}
+ imgListBox[activeElement].classList.add('img_visibility');
 
  //!quando prendo un btn
 
@@ -88,14 +106,14 @@ let imgList=carouselBox.children;
 //? creo l'evento sull click btn next
 btnNext.addEventListener(`click` , function(){
     //* l'elemento actveElement è uguale al suo incremento
-    activeElement = scrolling(imgList,activeElement,true);
+    activeElement = scrolling(imgList,activeElement,imgListBox,true);
    
 })
 
 //? creo l'evento sull click btn previus
 btnPrevius.addEventListener(`click` , function(){
     //* l'elemento actveElement è uguale al suo incremento
-    activeElement = scrolling(imgList,activeElement,false);
+    activeElement = scrolling(imgList,activeElement,imgListBox,false);
    
 })
 
@@ -105,10 +123,12 @@ btnPrevius.addEventListener(`click` , function(){
 
 
 //? creo la funxione per i btn
-function scrolling (listImg,elementActive,isNext){
+function scrolling (listImg,elementActive,thumbnailsBox,isNext){
     //*dalla variabile di partenza rimuovo l'active e aggiungo la classe d-none per non farla vedere
         listImg[elementActive].classList.remove('active');
         listImg[elementActive].classList.add('d-none');
+        //*{dalla variabile di partenza rimuovo la classe img_visibility }
+        thumbnailsBox[elementActive].classList.remove('img_visibility');
         
 
         //? creo un ternary operetor per vedere se il btn e next o previus
@@ -130,7 +150,13 @@ function scrolling (listImg,elementActive,isNext){
         //*al nuovo valore rimuovo il d-none e aggiungo la classe active per farla vedere
         listImg[elementActive].classList.remove('d-none');
         listImg[elementActive].classList.add('active');
+        //*{dalla variabile di partenza rimuovo la classe img_visibility }
+        thumbnailsBox[elementActive].classList.add('img_visibility');
 
         return elementActive;
 
 }
+// ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
+let clock = setInterval(function(){ 
+    activeElement = scrolling(imgList,activeElement,imgListBox,true);
+} , 3000)

@@ -5,3 +5,13 @@ img{
     object-fit: cover;
     height: 893px;
 }
+.mini_img img{
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    filter: grayscale(100%);
+    margin-right: 3px;
+}
+.img_visibility img{
+    filter: grayscale(0);
+}
