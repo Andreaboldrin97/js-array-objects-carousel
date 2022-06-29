@@ -28,14 +28,88 @@ const images = [
         description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam.'
     },
 ];
+//*recupero il parent dove voglio mettere gli array
+let carouselBox = document.querySelector(`.carousel_box`);
+//*{recupero il parent dove voglio mettere gli array}
+let imgBox = document.querySelector(`.img_box`);
+
+
 //? creo un ciclo forEach
-images.forEach((Element , i , array) => {
-    console.log(Element);
+images.forEach((element , i , array) => {
+     //porto in console gli elementi
+     console.log(`url(${element.url}) , title (${element.title}) , description (${element.description})`);
+
+    let imgCarousel = document.createElement('div')
+    imgCarousel.classList.add('position-relative')
+    //! creo il contenuto HTML con un Template literals 
+    imgCarousel.innerHTML= 
+                    `   <img src="${element.url}" alt="img di ${element.title}">
+                        <div class="text_img position-absolute top-0 text-end m-4">
+                            <h3 class="text-white">${element.title}</h3>
+                            <p class="text-white">${element.description}</p>
+                        </div> `
+            ;
+    //*aggiungo la classe d-none ad ogni elemento newImg per non farlo vedere 
+        imgCarousel.classList.add(`d-none`);
+    //! appendo l'elemento creato
+    carouselBox.append(imgCarousel);
+
 })
 
+//? creo una variabile di stato
+let activeElement = 0 ;
+
+//? associo alla var imglist i figli di carouselBox cioè le img create , per avrere la lista 
+let imgList=carouselBox.children;
+
+ //*alla var di partenza rimuovo il d-none e aggiungo la classe active per farla vedere
+ imgList[activeElement].classList.add('active');
+ imgList[activeElement].classList.remove('d-none');
+
+ //!quando prendo un btn
+
+    //!prendo il btn next
+    let btnNext=document.querySelector(`.btn_next`);
+
+    //!prendo il btn previus
+    let btnPrevius=document.querySelector(`.btn_previus`);
 
 
 
+
+
+
+
+
+
+
+//! creo la funxione per i btn
+function scrolling (listImg , elementActive , isNext){
+    //*dalla variabile di partenza rimuovo l'active e aggiungo la classe d-none per non farla vedere
+        listImg[elementActive].classList.remove('active');
+        listImg[elementActive].classList.add('d-none');
+        
+
+        //? creo un ternary operetor per vedere se il btn e next o previus
+            //se è next all'ora aumento di uno (++) senno sotrago 1 (--)
+        elementActive = (isNext) ? 'activeElement++' : 'activeElement--';
+        
+        
+
+         //* se active elemente ha rigiunto la lunghezza dell'array allora torna a 0
+         if(activeElement === imgList.length){
+            activeElement=0;
+        }
+         //* se active elemente ha rigiunto la lunghezza dell'array allora torna a 0
+         else if(activeElement === -1){
+            activeElement= imgList.length-1;
+        }
+
+
+        //*al nuovo valore rimuovo il d-none e aggiungo la classe active per farla vedere
+        listImg[elementActive].classList.remove('d-none');
+        listImg[elementActive].classList.add('active');
+}
 
 //! elemnto html pr l'img
 /* <img src="http://www.viaggiareonline.it/wp-content/uploads/2014/11/sweden_148857365.jpg" alt="">
