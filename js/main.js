@@ -7,6 +7,7 @@
 
 
 
+
 //? creo la const images degli array de l'elemnto 
 const images = [
     {
@@ -93,13 +94,25 @@ let imgList=carouselBox.children;
  //*{alla var di partenza aggiungo la classe 'img_visibility' per farla risaltare}
  imgListBox[activeElement].classList.add('img_visibility');
 
- //!quando prendo un btn
+ //!quando prendo btn e i btn[]
 
     //!prendo il btn next
     let btnNext=document.querySelector(`.btn_next`);
-
     //!prendo il btn previus
     let btnPrevius=document.querySelector(`.btn_previus`);
+
+
+    //! [prendo il btn-start]
+    let btnStart=document.querySelector(`.btn-start`);
+
+    //! [prendo il btn-inversion-back]
+    let btnInversionBack=document.querySelector(`.btn-inversion-back`);
+
+    //! [prendo il btn-inversion-forth]
+    let btnInversionForth=document.querySelector(`.btn-inversion-forth`);
+
+    //! [prendo il btn previus]
+    let btnStop=document.querySelector(`.btn-stop`);
 
 
    
@@ -118,6 +131,25 @@ btnPrevius.addEventListener(`click` , function(){
 })
 
 
+// //? [creo l'evento asull clik di btn-start]
+// btnStart.addEventListener('click', function(){
+   
+    
+// })
+// //? [creo l'evento asull clik di btnInversionForth]
+// btnInversionForth.addEventListener('click', function(){
+    
+    
+// })
+// //? [creo l'evento asull clik di btnInversionBack]
+// btnInversionBack.addEventListener('click', function(){
+   
+    
+//})
+// //? [creo l'evento asull clik di btnStop]
+btnStop.addEventListener('click', function(){
+   clearInterval(clock);
+ })
 
 
 
@@ -135,7 +167,6 @@ function scrolling (listImg,elementActive,thumbnailsBox,isNext){
             //se è next all'ora aumento di uno (++) senno sotrago 1 (--)
         elementActive = (isNext) ? (elementActive + 1) : (elementActive - 1);
         
-        console.log(elementActive)
 
          //* se active elemente ha rigiunto la lunghezza dell'array allora torna a 0
          if(elementActive === listImg.length){
@@ -156,7 +187,16 @@ function scrolling (listImg,elementActive,thumbnailsBox,isNext){
         return elementActive;
 
 }
+
+
+//? {creo l'evento sul click thumbnails all'img}
+imgThumbnails.addEventListener('click', function(){
+    console.log(`hai cliccato ${elementActive}`)
+});
+
+
 // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
 let clock = setInterval(function(){ 
     activeElement = scrolling(imgList,activeElement,imgListBox,true);
-} , 3000)
+} , 3000);
+
