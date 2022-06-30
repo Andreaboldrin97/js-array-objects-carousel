@@ -118,6 +118,7 @@ let imgList=carouselBox.children;
 btnNext.addEventListener(`click` , function(){
     //* l'elemento actveElement è uguale al suo incremento
     activeElement = scrolling(imgList,activeElement,imgListBox,true);
+    clearInterval(clock);
    
 })
 
@@ -125,6 +126,7 @@ btnNext.addEventListener(`click` , function(){
 btnPrevius.addEventListener(`click` , function(){
     //* l'elemento actveElement è uguale al suo incremento
     activeElement = scrolling(imgList,activeElement,imgListBox,false);
+    clearInterval(clock);
    
 })
 
@@ -182,6 +184,7 @@ for(let i = 0 ; i < imgListBox.length; i++){
             imgList[activeElement].classList.add('active');
     //*{dalla variabile di partenza rimuovo la classe img_visibility }
     imgListBox[activeElement].classList.add('img_visibility');
+    clearInterval(clock);
      
    });
 }
