@@ -46,8 +46,6 @@ let imgBox = document.querySelector(`.img_box`);
 
 //? creo un ciclo forEach
 images.forEach((element , i , array) => {
-     //porto in console gli elementi
-     console.log(`url(${element.url}) , title (${element.title}) , description (${element.description})`);
 
      //? creo l'elemto div (imgCarousel )
     let imgCarousel = document.createElement('div')
@@ -164,6 +162,29 @@ btnStop.addEventListener('click', function(){
    clearInterval(clock);
  })
 
+//  //? {creo un ciclo per prendere ogni elemento presente in imgListBox}
+for(let i = 0 ; i < imgListBox.length; i++){
+   // //? {creo l'evento sul click thumbnails all'img}
+    console.log(imgListBox[i])
+    imgListBox[i].addEventListener('click', function(){
+
+        //*al nuovo valore rimuovo il d-none e aggiungo la classe active per farla vedere
+        imgList[activeElement].classList.add('d-none');
+        imgList[activeElement].classList.remove('active');
+        //*{dalla variabile di partenza rimuovo la classe img_visibility }
+        imgListBox[activeElement].classList.remove('img_visibility');
+
+        activeElement = i;
+
+            //*al nuovo valore rimuovo il d-none e aggiungo la classe active per farla vedere
+            imgList[activeElement].classList.remove('d-none');
+            imgList[activeElement].classList.add('active');
+    //*{dalla variabile di partenza rimuovo la classe img_visibility }
+    imgListBox[activeElement].classList.add('img_visibility');
+     
+   });
+}
+
 
 
 
@@ -201,10 +222,5 @@ function scrolling (listImg,elementActive,thumbnailsBox,isNext){
 
 }
 
-// console.log(imgListBox)
-// //? {creo l'evento sul click thumbnails all'img}
-// imgListBox.addEventListener('click', function(){
-//     console.log(`hai cliccato ${elementActive}`)
-// });
 
 
