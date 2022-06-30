@@ -133,6 +133,7 @@ let clock;
 
 // //? [creo l'evento asull clik di btn-start]
  btnStart.addEventListener('click', function(){
+    clearInterval(clock);
    // ? [creo la funzione in modo che ogni 3s cambia l'img attiva]
     clock = setInterval(function(){ 
     activeElement = scrolling(imgList,activeElement,imgListBox,true);
